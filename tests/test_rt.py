@@ -4,12 +4,12 @@ from selenium.webdriver.support import expected_conditions as EC
 import pytest
 
 from pages.login_page import LoginPage
-from utils.constant import VALID_PHONE_NUMBER, VALID_PASSWORD
+from utils.constant import VALID_PHONE_NUMBER, VALID_PASSWORD, INVALID_PHONE_NUMBER
 
 
 def test_login_by_valid_phone_number(driver, base_url):
     '''
-    Проверка авторизации по номеру телефона
+    Проверка авторизации по корректному номеру телефона
     '''
     login_page = LoginPage(driver, base_url)
     login_page.open_self()
@@ -17,32 +17,69 @@ def test_login_by_valid_phone_number(driver, base_url):
     assert WebDriverWait(driver, 5).until(EC.element_to_be_clickbate(By.ID, "//*[@id='login_input']"))  # исправил на локатор по тексту.
     # assert WebDriverWait(driver, 5).until(EC.element_to_be_clickbate(By.NAME, "//h3[text()='Учетные данные']"))  # исправил на локатор по тексту. Но наверное логично проверять на наличие переданного логина, но как это сделать, там не пишется значение
 
+
+def test_login_by_invalid_phone_number(driver, base_url):
+    '''
+    Проверка авторизации по некорректному номеру телефона
+    '''
+    login_page = LoginPage(driver, base_url)
+    login_page.open_self()
+    login_page.login(INVALID_PHONE_NUMBER, VALID_PASSWORD, login_page.PHONE_TAB)
+    assert WebDriverWait(driver, 5).until(EC.element_to_be_clickbate(By.ID, "//*[@id='login_input']"))
+
+
 # def test_login_by_valid_email(self, driver):
 #     '''
-#     Проверка авторизации по электронной почте
+#     Проверка авторизации по корректной электронной почте
 #     '''
 #     login_page = LoginPage(self, driver)
 #     login_page.login(VALID_PHONE_NUMBER, VALID_PASSWORD, login_page.EMAIL_TAB)
 #     assert WebDriverWait(driver, 5).until(EC.element_to_be_clickbate(By.ID, "//*[@id='email_input']"))
 
-#
+
+# def test_login_by_invalid_email(self, driver):
+#     '''
+#     Проверка авторизации по некорректной электронной почте
+#     '''
+#     login_page = LoginPage(self, driver)
+#     login_page.login(INVALID_PHONE_NUMBER, VALID_PASSWORD, login_page.EMAIL_TAB)
+#     assert WebDriverWait(driver, 5).until(EC.element_to_be_clickbate(By.ID, "//*[@id='email_input']"))
+
+
 # def test_login_by_valid_login(self, driver):
 #     '''
-#     Проверка авторизации по логину
+#     Проверка авторизации по корректному логину
 #     '''
 #     login_page = LoginPage(self, driver)
 #     login_page.login(VALID_PHONE_NUMBER, VALID_PASSWORD, login_page.LOGIN_TAB)
 #     assert WebDriverWait(driver, 5).until(EC.element_to_be_clickbate(By.ID, "//*[@id='login_input']"))
-#
-#
+
+
+# def test_login_by_invalid_login(self, driver):
+#     '''
+#     Проверка авторизации по некорректному логину
+#     '''
+#     login_page = LoginPage(self, driver)
+#     login_page.login(INVALID_PHONE_NUMBER, VALID_PASSWORD, login_page.LOGIN_TAB)
+#     assert WebDriverWait(driver, 5).until(EC.element_to_be_clickbate(By.ID, "//*[@id='login_input']"))
+
+
 # def test_login_by_valid_personal_account(self, driver):
 #     '''
-#     Проверка авторизации по лицевому счёту. Т.к. данные для авторизации по лицевому счёту отсутствуют, то данный тест кейс не сработает. Необходимо в файле constant.py задать корректное значение для переменной VALID_LS
+#     Проверка авторизации по корректному лицевому счёту. Т.к. данные для авторизации по лицевому счёту отсутствуют, то данный тест кейс не сработает. Необходимо в файле constant.py задать корректное значение для переменной VALID_LS
 #     '''
 #     login_page = LoginPage(self, driver)
 #     login_page.login(VALID_PHONE_NUMBER, VALID_PASSWORD, login_page.LS_TAB)
 #     assert WebDriverWait(driver, 5).until(EC.element_to_be_clickbate(By.ID, "//*[@id='login_input']"))
 
+
+# def test_login_by_invalid_personal_account(self, driver):
+#     '''
+#     Проверка авторизации по некорректному лицевому счёту. Т.к. данные для авторизации по лицевому счёту отсутствуют, то данный тест кейс не сработает. Необходимо в файле constant.py задать корректное значение для переменной VALID_LS и изменить VALID_PASSWORD или задать новую переменную
+#     '''
+#     login_page = LoginPage(self, driver)
+#     login_page.login(INVALID_PHONE_NUMBER, VALID_PASSWORD, login_page.LS_TAB)
+#     assert WebDriverWait(driver, 5).until(EC.element_to_be_clickbate(By.ID, "//*[@id='login_input']"))
 
 
 def test_product_slogan_after_auth(driver, base_url):

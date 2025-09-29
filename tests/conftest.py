@@ -1,3 +1,12 @@
+# @pytest.fixture(scope='session')
+# def base_url():
+#     return 'https://b2c.passport.rt.ru/' # pytestconfig.getoptopn('--base-url')
+#
+# @pytest.fixture(scope='session')
+# def url_onlime_web():
+#     return 'https://my.rt.ru/'
+
+
 from selenium.webdriver.chrome.service import Service
 import pytest
 from selenium import webdriver

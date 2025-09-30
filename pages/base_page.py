@@ -25,16 +25,3 @@ class BasePage:
     def close(self):
         self.driver.quit()
 
-
-    # def __init__(self, driver, base_url: str):
-    #     self.driver = driver
-    #     self.base_url = base_url
-
-
-    # def setup(self):
-    #     self.phone_number = settings.valid_phone_number
-    #     self.user = settings.valid_email
-    #     self.password = settings.valid_password
-    #     self.login = settings.valid_login
-
-
